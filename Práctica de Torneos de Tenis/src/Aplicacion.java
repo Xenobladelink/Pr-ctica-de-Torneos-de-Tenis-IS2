@@ -7,6 +7,7 @@ public class Aplicacion {
 	private Usuario actUsr;
 	private Usuario vacio;
 	
+	// prueba github
 	public Aplicacion() {
 		admin = new Usuario("admin", "admin", "admin", "admin", "admin", "admin");
 		usuarios.put("admin", admin);
