@@ -7,7 +7,6 @@ public class Aplicacion {
 	private Usuario actUsr;
 	private Usuario vacio;
 	
-	// prueba github
 	public Aplicacion() {
 		admin = new Usuario("admin", "admin", "admin", "admin", "admin", "admin");
 		usuarios.put("admin", admin);
@@ -15,52 +14,52 @@ public class Aplicacion {
 		actUsr = vacio;
 	}
 	
-	public void crearUsuario(String nombre, String apellidos, String telefono, String email, String nombreUsuario, String contrase馻) {
+	public void crearUsuario(String nombre, String apellidos, String telefono, String email, String nombreUsuario, String contrase帽a) {
 		if(actUsr.equals(vacio)) {
 			if(usuarios.containsKey(nombreUsuario)) {
 				System.err.println("Error: El nombre de usuario introducido ya existe, pruebe con uno distinto");
 			}
-			Usuario nuevoUsr = new Usuario(nombre, apellidos, telefono, email, nombreUsuario, contrase馻);
+			Usuario nuevoUsr = new Usuario(nombre, apellidos, telefono, email, nombreUsuario, contrase帽a);
 			this.usuarios.put(nombreUsuario, nuevoUsr);
 		} else {
-			System.err.println("Error: No se puede crear un usuario con una sesi髇 iniciada");
+			System.err.println("Error: No se puede crear un usuario con una sesi贸n iniciada");
 			return;
 		}
 	}
 	
-	public void Login(String nombreUsuario, String contrase馻) {
+	public void Login(String nombreUsuario, String contrase帽a) {
 		if(actUsr.equals(vacio)) {
 			if (usuarios.containsKey(nombreUsuario)){
-				if(usuarios.get(nombreUsuario).GetContrase馻().equals(contrase馻)) {
+				if(usuarios.get(nombreUsuario).GetContrase帽a().equals(contrase帽a)) {
 					this.actUsr = usuarios.get(nombreUsuario);
-					System.out.println("Sesi髇 iniciada correctamente");
+					System.out.println("Sesi贸n iniciada correctamente");
 				} else {
-					System.err.println("Error: Contrase馻 err髇ea, int閚telo de nuevo");
+					System.err.println("Error: Contrase帽a err贸nea, int茅ntelo de nuevo");
 					return;
 				}
 			} else {
-				System.err.println("Error: No existe un usuario con dicho nombre de usuario, int閚telo de nuevo");
+				System.err.println("Error: No existe un usuario con dicho nombre de usuario, int茅ntelo de nuevo");
 				return;
 			}
 		} else {
-			System.err.println("Error: Ya tienes una sesi髇 iniciada");
+			System.err.println("Error: Ya tienes una sesi贸n iniciada");
 			return;
 		}
 	}
 	
 	public void Logout() {
 		if(actUsr.equals(vacio)) {
-			System.err.println("Error: No tienes una sesi髇 iniciada");
+			System.err.println("Error: No tienes una sesi贸n iniciada");
 			return;
 		} else {
 			actUsr = vacio;
-			System.out.println("Sesi髇 cerrada con 閤ito");
+			System.out.println("Sesi贸n cerrada con 茅xito");
 		}
 	}
 	
 	public void modificarNombreUsr(String nuevoNombreUsr) {
 		if(actUsr.equals(vacio)) {
-			System.err.println("Error: No tienes una sesi髇 iniciada");
+			System.err.println("Error: No tienes una sesi贸n iniciada");
 			return;
 		} else {
 			if(this.usuarios.containsKey(nuevoNombreUsr)) {
