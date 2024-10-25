@@ -53,7 +53,7 @@ public class Aplicacion {
 			return;
 		} else {
 			actUsr = vacio;
-			System.out.println("Sesión cerrada con exito");
+			System.out.println("Sesion cerrada con exito");
 		}
 	}
 	
