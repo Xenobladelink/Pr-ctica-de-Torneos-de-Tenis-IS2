@@ -14,52 +14,52 @@ public class Aplicacion {
 		actUsr = vacio;
 	}
 	
-	public void crearUsuario(String nombre, String apellidos, String telefono, String email, String nombreUsuario, String contraseña) {
+	public void crearUsuario(String nombre, String apellidos, String telefono, String email, String nombreUsuario, String pwd) {
 		if(actUsr.equals(vacio)) {
 			if(usuarios.containsKey(nombreUsuario)) {
 				System.err.println("Error: El nombre de usuario introducido ya existe, pruebe con uno distinto");
 			}
-			Usuario nuevoUsr = new Usuario(nombre, apellidos, telefono, email, nombreUsuario, contraseña);
+			Usuario nuevoUsr = new Usuario(nombre, apellidos, telefono, email, nombreUsuario, pwd);
 			this.usuarios.put(nombreUsuario, nuevoUsr);
 		} else {
-			System.err.println("Error: No se puede crear un usuario con una sesión iniciada");
+			System.err.println("Error: No se puede crear un usuario con una sesion iniciada");
 			return;
 		}
 	}
 	
-	public void Login(String nombreUsuario, String contraseña) {
+	public void Login(String nombreUsuario, String pwd) {
 		if(actUsr.equals(vacio)) {
 			if (usuarios.containsKey(nombreUsuario)){
-				if(usuarios.get(nombreUsuario).GetContraseña().equals(contraseña)) {
+				if(usuarios.get(nombreUsuario).GetPwd().equals(pwd)) {
 					this.actUsr = usuarios.get(nombreUsuario);
-					System.out.println("Sesión iniciada correctamente");
+					System.out.println("Sesion iniciada correctamente");
 				} else {
-					System.err.println("Error: Contraseña errónea, inténtelo de nuevo");
+					System.err.println("Error: Contrasena erronea, intentelo de nuevo");
 					return;
 				}
 			} else {
-				System.err.println("Error: No existe un usuario con dicho nombre de usuario, inténtelo de nuevo");
+				System.err.println("Error: No existe un usuario con dicho nombre de usuario, intentelo de nuevo");
 				return;
 			}
 		} else {
-			System.err.println("Error: Ya tienes una sesión iniciada");
+			System.err.println("Error: Ya tienes una sesion iniciada");
 			return;
 		}
 	}
 	
 	public void Logout() {
 		if(actUsr.equals(vacio)) {
-			System.err.println("Error: No tienes una sesión iniciada");
+			System.err.println("Error: No tienes una sesion iniciada");
 			return;
 		} else {
 			actUsr = vacio;
-			System.out.println("Sesión cerrada con éxito");
+			System.out.println("Sesión cerrada con exito");
 		}
 	}
 	
 	public void modificarNombreUsr(String nuevoNombreUsr) {
 		if(actUsr.equals(vacio)) {
-			System.err.println("Error: No tienes una sesión iniciada");
+			System.err.println("Error: No tienes una sesion iniciada");
 			return;
 		} else {
 			if(this.usuarios.containsKey(nuevoNombreUsr)) {

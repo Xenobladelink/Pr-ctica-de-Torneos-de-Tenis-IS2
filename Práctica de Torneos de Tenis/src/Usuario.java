@@ -6,18 +6,18 @@ public class Usuario {
 	private String telefono;
 	private String email;
 	private String nombreUsuario;
-	private String contraseña;
+	private String pwd;
 	
 	public Usuario() {
 	}
 	
-	public Usuario(String nombre, String apellidos, String telefono, String email, String nombreUsuario, String contraseña) {
+	public Usuario(String nombre, String apellidos, String telefono, String email, String nombreUsuario, String pwd) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.telefono = telefono;
 		this.email = email;
 		this.nombreUsuario = nombreUsuario;
-		this.contraseña = contraseña;
+		this.pwd = pwd;
 	}
 	
 	public String GetNombre() {
@@ -48,11 +48,11 @@ public class Usuario {
 		return this.nombreUsuario;
 	}
 	
-	public void SetContraseña (String contraseña) {
-		this.contraseña = contraseña;
+	public void SetPwd (String pwd) {
+		this.pwd = pwd;
 	}
 	
-	public String GetContraseña() {
-		return this.contraseña;
+	public String GetPwd() {
+		return this.pwd;
 	}
 }
