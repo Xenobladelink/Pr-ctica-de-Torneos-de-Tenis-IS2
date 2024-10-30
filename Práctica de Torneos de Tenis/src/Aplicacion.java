@@ -158,6 +158,7 @@ public class Aplicacion {
 	            int rowsAffected = statement.executeUpdate();
 	            if (rowsAffected > 0) {
 	                System.out.println("Nombre del usuario cambiado exitosamente a: " + nuevoNombreUsr);
+	                actUsr = nuevoNombreUsr;
 	            } else {
 	                System.err.println("Error: No se pudo cambiar el nombre del usuario.");
 	            }
