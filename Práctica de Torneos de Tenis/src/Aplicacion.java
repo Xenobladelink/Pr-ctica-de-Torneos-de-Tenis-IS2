@@ -7,10 +7,10 @@ import java.sql.SQLException;
 
 public class Aplicacion {
 
-	private static final String URL = "jdbc:mysql://localhost:3306/BBDD_IS2";
+	private static final String URL = "jdbc:mysql://localhost:3306/TenisUPM";
 	private static final String USER = "root";
-	private static final String PASSWORD = "contrasena";
-	private DBConnection conn = new DBConnection("localhost",3306,"root","","tenisupm");
+	private static final String PASSWORD = "2cebad49";
+//	private DBConnection conn = new DBConnection("localhost",3306,"root","","tenisupm");
 //	private HashMap<String,Usuario> usuarios = new HashMap<String,Usuario>();
 	private String admin;
 	private String actUsr;
@@ -93,8 +93,10 @@ public class Aplicacion {
 				if(pwd.equals("admin")) {
 					this.actUsr = admin;
 					System.out.println("Inicio de sesión exitoso. Usuario activo: " + actUsr);
+					return;
 				} else {
 					System.err.println("Error: La contraseña es incorrecta.");
+					return;
 				}
 			}
 			String sql = "SELECT pwd FROM Usuarios WHERE nombre_usuario = ?";
@@ -145,6 +147,10 @@ public class Aplicacion {
 			System.err.println("Error: No tienes una sesion iniciada");
 			return;
 		} else {
+			if(existeUsuario(nuevoNombreUsr, "")) {
+				System.err.println("Error: Ya existe un usuario con ese nombre de usuario.");
+				return;
+			}
 			String sql = "UPDATE Usuarios SET nombre = ? WHERE nombre_usuario = ?";
 
 	        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
