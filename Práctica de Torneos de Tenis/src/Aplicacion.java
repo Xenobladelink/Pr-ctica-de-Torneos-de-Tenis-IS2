@@ -3,22 +3,18 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.util.HashMap;
 
 public class Aplicacion {
 
 	private static final String URL = "jdbc:mysql://localhost:3306/TenisUPM";
 	private static final String USER = "root";
 	private static final String PASSWORD = "2cebad49";
-//	private DBConnection conn = new DBConnection("localhost",3306,"root","","tenisupm");
-//	private HashMap<String,Usuario> usuarios = new HashMap<String,Usuario>();
 	private String admin;
 	private String actUsr;
 	private String vacio;
 	
 	public Aplicacion() {
 		admin = "admin";
-//		usuarios.put("admin", admin);
 		vacio = "";
 		actUsr = vacio;
 	}
@@ -45,9 +41,9 @@ public class Aplicacion {
         return existe;
     }
 
-    // M�todo para crear un nuevo usuario
+    // Metodo para crear un nuevo usuario
     public void crearUsuario(String nombre, String apellidos, String telefono, String email, String nombreUsuario, String pwd) {
-        // Verifica si no hay sesi�n activa
+        // Verifica si no hay sesion activa
         if (actUsr.equals(vacio)) {
 
             // Comprueba si el usuario o el correo ya existen en la base de datos
@@ -61,7 +57,7 @@ public class Aplicacion {
             try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                  PreparedStatement statement = connection.prepareStatement(sqlInsert)) {
 
-                // Asigna los valores a la consulta de inserci�n
+                // Asigna los valores a la consulta de insercion
                 statement.setString(1, nombre);
                 statement.setString(2, apellidos);
                 statement.setString(3, telefono);
@@ -69,7 +65,7 @@ public class Aplicacion {
                 statement.setString(5, nombreUsuario);
                 statement.setString(6, pwd);
 
-                // Ejecuta la inserci�n
+                // Ejecuta la insercion
                 int rowsAffected = statement.executeUpdate();
                 if (rowsAffected > 0) {
                     System.out.println("Usuario creado exitosamente en la base de datos.");
@@ -103,11 +99,11 @@ public class Aplicacion {
 	        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 	             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-	            // Asigna el nombre de usuario al par�metro de la consulta
+	            // Asigna el nombre de usuario al parimetro de la consulta
 	            statement.setString(1, nombreUsuario);
 	            ResultSet resultSet = statement.executeQuery();
 
-	            // Comprueba si existe el usuario y obtiene la contrase�a almacenada
+	            // Comprueba si existe el usuario y obtiene la contrasena almacenada
 	            if (resultSet.next()) {
 	                String contrasenaAlmacenada = resultSet.getString("contrasena");
 
@@ -156,11 +152,11 @@ public class Aplicacion {
 	        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 	             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-	            // Asigna los par�metros a la consulta de actualizaci�n
+	            // Asigna los parimetros a la consulta de actualizacion
 	            statement.setString(1, nuevoNombreUsr);       // Nuevo nombre del usuario
 	            statement.setString(2, actUsr);     // Confirma que es el usuario activo
 
-	            // Ejecuta la actualizaci�n
+	            // Ejecuta la actualizacion
 	            int rowsAffected = statement.executeUpdate();
 	            if (rowsAffected > 0) {
 	                System.out.println("Nombre del usuario cambiado exitosamente a: " + nuevoNombreUsr);
@@ -174,71 +170,4 @@ public class Aplicacion {
 	        }
 		}
 	}
-	
-//	public void crearUsuario(String nombre, String apellidos, String telefono, String email, String nombreUsuario, String pwd) {
-//		if(!conn.connect()) {
-//			System.err.println("Error: No se ha podido conectar con la base de datos");
-//			return;
-//		}
-//		if(actUsr.equals(vacio)) {
-//			if(usuarios.containsKey(nombreUsuario)) {
-//				System.err.println("Error: El nombre de usuario introducido ya existe, pruebe con uno distinto");
-//			}
-//			Usuario nuevoUsr = new Usuario(nombre, apellidos, telefono, email, nombreUsuario, pwd);
-//			this.usuarios.put(nombreUsuario, nuevoUsr);
-//		} else {
-//			System.err.println("Error: No se puede crear un usuario con una sesion iniciada");
-//			return;
-//		}
-//		if(!conn.close()) {
-//			System.err.println("Error: No se ha podido desconectar con la base de datos");
-//			return;
-//		}
-//	}
-//	
-//	public void Login(String nombreUsuario, String pwd) {
-//		if(actUsr.equals(vacio)) {
-//			if (usuarios.containsKey(nombreUsuario)){
-//				if(usuarios.get(nombreUsuario).GetPwd().equals(pwd)) {
-//					this.actUsr = usuarios.get(nombreUsuario);
-//					System.out.println("Sesion iniciada correctamente");
-//				} else {
-//					System.err.println("Error: Contrasena erronea, intentelo de nuevo");
-//					return;
-//				}
-//			} else {
-//				System.err.println("Error: No existe un usuario con dicho nombre de usuario, intentelo de nuevo");
-//				return;
-//			}
-//		} else {
-//			System.err.println("Error: Ya tienes una sesion iniciada");
-//			return;
-//		}
-//	}
-//	
-//	public void Logout() {
-//		if(actUsr.equals(vacio)) {
-//			System.err.println("Error: No tienes una sesion iniciada");
-//			return;
-//		} else {
-//			actUsr = vacio;
-//			System.out.println("Sesion cerrada con exito");
-//		}
-//	}
-//	
-//	public void modificarNombreUsr(String nuevoNombreUsr) {
-//		if(actUsr.equals(vacio)) {
-//			System.err.println("Error: No tienes una sesion iniciada");
-//			return;
-//		} else {
-//			if(this.usuarios.containsKey(nuevoNombreUsr)) {
-//				System.err.println("Error: El nombre de usuario introducido ya existe, pruebe con uno distinto");
-//				return;
-//			}
-//			this.usuarios.remove(actUsr.GetNombre());
-//			actUsr.SetNombreUsr(nuevoNombreUsr);
-//			this.usuarios.put(nuevoNombreUsr, actUsr);
-//			System.out.println("Nombre de usuario modificado correctamente");
-//		}
-//	}
 }
