@@ -24,7 +24,7 @@ public class Aplicacion {
 	}
 	
 	public boolean existeUsuario(String nombreUsuario, String correo) {
-        String sql = "SELECT COUNT(*) FROM Usuarios WHERE nombre_usuario = ? OR correo = ?";
+        String sql = "SELECT COUNT(*) FROM Usuarios WHERE nombre_usuario = ? OR email = ?";
         boolean existe = false;
 
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -45,9 +45,9 @@ public class Aplicacion {
         return existe;
     }
 
-    // Método para crear un nuevo usuario
+    // Mï¿½todo para crear un nuevo usuario
     public void crearUsuario(String nombre, String apellidos, String telefono, String email, String nombreUsuario, String pwd) {
-        // Verifica si no hay sesión activa
+        // Verifica si no hay sesiï¿½n activa
         if (actUsr.equals(vacio)) {
 
             // Comprueba si el usuario o el correo ya existen en la base de datos
@@ -57,11 +57,11 @@ public class Aplicacion {
             }
 
             // Si no existe, inserta el nuevo usuario en la base de datos
-            String sqlInsert = "INSERT INTO Usuarios (nombre, apellidos, telefono, correo, nombre_usuario, contrasena) VALUES (?, ?, ?, ?, ?, ?)";
+            String sqlInsert = "INSERT INTO Usuarios (nombre, apellidos, telefono, email, nombre_usuario, contrasena) VALUES (?, ?, ?, ?, ?, ?)";
             try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                  PreparedStatement statement = connection.prepareStatement(sqlInsert)) {
 
-                // Asigna los valores a la consulta de inserción
+                // Asigna los valores a la consulta de inserciï¿½n
                 statement.setString(1, nombre);
                 statement.setString(2, apellidos);
                 statement.setString(3, telefono);
@@ -69,7 +69,7 @@ public class Aplicacion {
                 statement.setString(5, nombreUsuario);
                 statement.setString(6, pwd);
 
-                // Ejecuta la inserción
+                // Ejecuta la inserciï¿½n
                 int rowsAffected = statement.executeUpdate();
                 if (rowsAffected > 0) {
                     System.out.println("Usuario creado exitosamente en la base de datos.");
@@ -82,7 +82,7 @@ public class Aplicacion {
             }
 
         } else {
-            System.err.println("Error: No se puede crear un usuario con una sesión iniciada.");
+            System.err.println("Error: No se puede crear un usuario con una sesiï¿½n iniciada.");
         }
     }
     
@@ -92,31 +92,31 @@ public class Aplicacion {
 			if(nombreUsuario.equals(admin)) {
 				if(pwd.equals("admin")) {
 					this.actUsr = admin;
-					System.out.println("Inicio de sesión exitoso. Usuario activo: " + actUsr);
+					System.out.println("Inicio de sesiï¿½n exitoso. Usuario activo: " + actUsr);
 					return;
 				} else {
-					System.err.println("Error: La contraseña es incorrecta.");
+					System.err.println("Error: La contraseï¿½a es incorrecta.");
 					return;
 				}
 			}
-			String sql = "SELECT pwd FROM Usuarios WHERE nombre_usuario = ?";
+			String sql = "SELECT contrasena FROM Usuarios WHERE nombre_usuario = ?";
 	        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 	             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-	            // Asigna el nombre de usuario al parámetro de la consulta
+	            // Asigna el nombre de usuario al parï¿½metro de la consulta
 	            statement.setString(1, nombreUsuario);
 	            ResultSet resultSet = statement.executeQuery();
 
-	            // Comprueba si existe el usuario y obtiene la contraseña almacenada
+	            // Comprueba si existe el usuario y obtiene la contraseï¿½a almacenada
 	            if (resultSet.next()) {
-	                String contraseñaAlmacenada = resultSet.getString("pwd");
+	                String contrasenaAlmacenada = resultSet.getString("contrasena");
 
-	                // Compara la contraseña almacenada con la proporcionada
-	                if (contraseñaAlmacenada.equals(pwd)) {
+	                // Compara la contrasena almacenada con la proporcionada
+	                if (contrasenaAlmacenada.equals(pwd)) {
 	                    actUsr = nombreUsuario;  // Establece el usuario como activo
-	                    System.out.println("Inicio de sesión exitoso. Usuario activo: " + actUsr);
+	                    System.out.println("Inicio de sesiï¿½n exitoso. Usuario activo: " + actUsr);
 	                } else {
-	                    System.err.println("Error: La contraseña es incorrecta.");
+	                    System.err.println("Error: La contraseï¿½a es incorrecta.");
 	                }
 	            } else {
 	                System.err.println("Error: El nombre de usuario no existe.");
@@ -151,16 +151,16 @@ public class Aplicacion {
 				System.err.println("Error: Ya existe un usuario con ese nombre de usuario.");
 				return;
 			}
-			String sql = "UPDATE Usuarios SET nombre = ? WHERE nombre_usuario = ?";
+			String sql = "UPDATE Usuarios SET nombre_usuario = ? WHERE nombre_usuario = ?";
 
 	        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 	             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-	            // Asigna los parámetros a la consulta de actualización
+	            // Asigna los parï¿½metros a la consulta de actualizaciï¿½n
 	            statement.setString(1, nuevoNombreUsr);       // Nuevo nombre del usuario
 	            statement.setString(2, actUsr);     // Confirma que es el usuario activo
 
-	            // Ejecuta la actualización
+	            // Ejecuta la actualizaciï¿½n
 	            int rowsAffected = statement.executeUpdate();
 	            if (rowsAffected > 0) {
 	                System.out.println("Nombre del usuario cambiado exitosamente a: " + nuevoNombreUsr);
