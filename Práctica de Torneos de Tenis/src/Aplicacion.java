@@ -78,7 +78,7 @@ public class Aplicacion {
             }
 
         } else {
-            System.err.println("Error: No se puede crear un usuario con una sesi�n iniciada.");
+            System.err.println("Error: No se puede crear un usuario con una sesion iniciada.");
         }
     }
     
@@ -88,10 +88,10 @@ public class Aplicacion {
 			if(nombreUsuario.equals(admin)) {
 				if(pwd.equals("admin")) {
 					this.actUsr = admin;
-					System.out.println("Inicio de sesi�n exitoso. Usuario activo: " + actUsr);
+					System.out.println("Inicio de sesion exitoso. Usuario activo: " + actUsr);
 					return;
 				} else {
-					System.err.println("Error: La contrase�a es incorrecta.");
+					System.err.println("Error: La contrasena es incorrecta.");
 					return;
 				}
 			}
@@ -110,9 +110,9 @@ public class Aplicacion {
 	                // Compara la contrasena almacenada con la proporcionada
 	                if (contrasenaAlmacenada.equals(pwd)) {
 	                    actUsr = nombreUsuario;  // Establece el usuario como activo
-	                    System.out.println("Inicio de sesi�n exitoso. Usuario activo: " + actUsr);
+	                    System.out.println("Inicio de sesion exitoso. Usuario activo: " + actUsr);
 	                } else {
-	                    System.err.println("Error: La contrase�a es incorrecta.");
+	                    System.err.println("Error: La contrasena es incorrecta.");
 	                }
 	            } else {
 	                System.err.println("Error: El nombre de usuario no existe.");
