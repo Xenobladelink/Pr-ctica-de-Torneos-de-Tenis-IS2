@@ -1,0 +1,1 @@
+En el build path del proyecto está configurado el jar mysql-connector-java-8.0.28.jar según dónde lo teníamos descargado, por lo tanto para comprobar el código hace falta configurar el path en el que se encuentra.
