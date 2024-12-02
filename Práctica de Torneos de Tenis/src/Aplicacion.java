@@ -170,4 +170,33 @@ public class Aplicacion {
 	        }
 		}
 	}
+    
+    public void modificarTelefono(String nuevoTelefono) {
+    	if(actUsr.equals(vacio)) {
+			System.err.println("Error: No tienes una sesion iniciada");
+			return;
+		} else {
+			
+			String sql = "UPDATE Usuarios SET telefono = ? WHERE nombre_usuario = ?";
+
+	        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+	             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+	            // Asigna los parimetros a la consulta de actualizacion
+	            statement.setString(1, nuevoTelefono);       // Nuevo nombre del usuario
+	            statement.setString(2, actUsr);     // Confirma que es el usuario activo
+
+	            // Ejecuta la actualizacion
+	            int rowsAffected = statement.executeUpdate();
+	            if (rowsAffected > 0) {
+	                System.out.println("Telefono cambiado exitosamente a: " + nuevoTelefono);
+	            } else {
+	                System.err.println("Error: No se pudo cambiar el telefono.");
+	            }
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+		}
+    }
 }
