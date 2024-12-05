@@ -30,6 +30,21 @@ public class Pruebas {
 		
 		// Pruebas Ciclo 2
 		
+		System.out.println("\nPruebas de Modificar Telefono");
+		app.Login("pedrogarcia", "contrasena");
+		app.modificarTelefono("625347546");
+		app.Logout();
+		app.modificarNombreUsr("698751456");
+		
+		System.out.println("\nPruebas de Modificar Contrasena");
+		app.Login("pedrogarcia", "contrasena");
+		app.modificarContrasena("contrasena", "contrasena");
+		app.modificarContrasena("algo", "erronea");
+		app.modificarContrasena("algo", "contrasena");
+		app.Logout();
+		app.Login("pedrogarcia", "contrasena");
+		app.Login("pedrogarcia", "algo");
+		app.Logout();
 		
 	}
 }

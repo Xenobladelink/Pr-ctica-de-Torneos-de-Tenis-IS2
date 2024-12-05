@@ -199,4 +199,55 @@ public class Aplicacion {
 	        }
 		}
     }
+    
+    public void modificarContrasena (String nuevaContrasena, String contrasenaActual) {
+    	if(actUsr.equals(vacio)) {
+			System.err.println("Error: No tienes una sesion iniciada");
+			return;
+		} else {
+			String comprobarSql = "SELECT contrasena FROM Usuarios WHERE nombre_usuario = ?";
+			String sql = "UPDATE Usuarios SET contrasena = ? WHERE nombre_usuario = ?";
+
+	        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        		PreparedStatement statement1 = connection.prepareStatement(comprobarSql)) {
+
+	            // Asigna el nombre de usuario al parimetro de la consulta
+	            statement1.setString(1, actUsr);
+	            ResultSet resultSet = statement1.executeQuery();
+
+	            // Comprueba si existe el usuario y obtiene la contrasena almacenada
+	            if (resultSet.next()) {
+	                String contrasenaAlmacenada = resultSet.getString("contrasena");
+
+	                // Compara la contrasena almacenada con la proporcionada
+	                if (contrasenaAlmacenada.equals(contrasenaActual)) {
+	                	if(nuevaContrasena.equals(contrasenaActual)) {
+	        				System.err.println("Error: No puedes introducir la misma contrasena que la actual.");
+	        				return;
+	        			}
+	                	PreparedStatement statement2 = connection.prepareStatement(sql); {
+
+	        	            // Asigna los parimetros a la consulta de actualizacion
+	        	            statement2.setString(1, nuevaContrasena);       // Nuevo nombre del usuario
+	        	            statement2.setString(2, actUsr);     // Confirma que es el usuario activo
+
+	        	            // Ejecuta la actualizacion
+	        	            int rowsAffected = statement2.executeUpdate();
+	        	            if (rowsAffected > 0) {
+	        	                System.out.println("Contrasena cambiada exitosamente.");
+	        	            } else {
+	        	                System.err.println("Error: No se pudo cambiar la contrasena.");
+	        	            }
+	                	}
+	                } else {
+	                    System.err.println("Error: La contrasena antigua es incorrecta.");
+	                }
+	            } else {
+	                System.err.println("Error: El nombre de usuario no existe.");
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+		}
+    }
 }
