@@ -240,7 +240,7 @@ public class Aplicacion {
 	        	            }
 	                	}
 	                } else {
-	                    System.err.println("Error: La contrasena antigua es incorrecta.");
+	                    System.err.println("Error: La contrasena actual es incorrecta.");
 	                }
 	            } else {
 	                System.err.println("Error: El nombre de usuario no existe.");
